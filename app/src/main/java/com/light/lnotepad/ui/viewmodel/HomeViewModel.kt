@@ -11,6 +11,12 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: NoteRepository
-) : ViewModel(){
-    val noteList: LiveData<List<Note>> = repository.getNoteList().asLiveData()
+) : ViewModel() {
+    var storedNoteList: LiveData<List<Note>>? = null
+    val noteList: LiveData<List<Note>> =
+        if (storedNoteList != null) storedNoteList!! else {
+            storedNoteList = repository.getNoteList().asLiveData()
+            storedNoteList!!
+        }
+
 }

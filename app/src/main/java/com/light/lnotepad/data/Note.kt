@@ -26,7 +26,11 @@ class Note @Inject constructor(
     @ColumnInfo(name = "end_time")
     var endTime: Date
 ) : Serializable {
-    override fun toString(): String = title
+    override fun toString(): String = "$title: $color"
+
+    override fun equals(other: Any?): Boolean {
+        return id == (other as Note).id
+    }
 
     fun convertStartTimeStr():String {
         return DateFormatHelper.convertDate2("yyyy-MM-dd", startTime)

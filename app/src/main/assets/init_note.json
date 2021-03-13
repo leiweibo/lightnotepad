@@ -8,5 +8,25 @@
     "tag": "lightnote",
     "title": "The second note for test.",
     "content": "An additional note for test purpose."
+  },
+  {
+    "tag": "lightnote",
+    "title": "The third note for test.",
+    "content": "An additional note for test purpose."
+  },
+  {
+    "tag": "lightnote",
+    "title": "The fourth note for test.",
+    "content": "Glad to see you use the app, you can move the item with long click, and swipe left or right to delete the item. enjoy."
+  },
+  {
+    "tag": "lightnote",
+    "title": "The fifth note for test.",
+    "content": "Glad to see you use the app, you can move the item with long click, and swipe left or right to delete the item. enjoy."
+  },
+  {
+    "tag": "lightnote",
+    "title": "The sixth note for test.",
+    "content": "Glad to see you use the app, you can move the item with long click, and swipe left or right to delete the item. enjoy."
   }
 ]
