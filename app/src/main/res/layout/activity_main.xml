@@ -7,21 +7,6 @@
     tools:context=".MainActivity"
     >
 
-  <com.google.android.material.appbar.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/Theme.Lightnotepad.AppBarOverlay"
-      >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/Theme.Lightnotepad.PopupOverlay"
-        />
-
-  </com.google.android.material.appbar.AppBarLayout>
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/fab"

@@ -2,6 +2,7 @@ package com.light.lnotepad.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,16 @@ class NoteAdapter : ListAdapter<Note, RecyclerView.ViewHolder>(NoteDiffCallback(
 
     class NoteViewHolder(private val binding: ItemNoteHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.setClickListener {
+                binding.note?.let {note ->
+                    val direction = HomeFragmentDirections.actionHomeFragmentToViewFragment(note)
+                    it.findNavController().navigate(direction)
+                }
+
+            }
+        }
 
         fun bind(item: Note) {
             binding.apply {

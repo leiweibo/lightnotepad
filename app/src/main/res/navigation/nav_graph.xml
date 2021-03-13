@@ -11,10 +11,21 @@
       android:label="@string/home_fragment_label"
       tools:layout="@layout/fragment_home">
 
-    <action
-        android:id="@+id/action_FirstFragment_to_SecondFragment"
-        app:destination="@id/EditFragment" />
+    <action android:id="@+id/action_HomeFragment_to_ViewFragment"
+        app:destination="@id/ViewFragment">
+    </action>
+
   </fragment>
+
+  <fragment
+      android:id="@+id/ViewFragment"
+      android:name="com.light.lnotepad.ui.view.ViewFragment"
+      android:label="@string/view_fragment_label"
+      tools:layout="@layout/fragment_view">
+    <argument android:name="note"
+        app:argType="com.light.lnotepad.data.Note"></argument>
+  </fragment>
+
   <fragment
       android:id="@+id/EditFragment"
       android:name="com.light.lnotepad.ui.edit.EditNoteFragment"

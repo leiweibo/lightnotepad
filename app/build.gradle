@@ -3,6 +3,7 @@ plugins {
   id 'kotlin-android'
   id 'kotlin-kapt'
   id 'dagger.hilt.android.plugin'
+  id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -73,6 +74,11 @@ dependencies {
 
   implementation "androidx.fragment:fragment-ktx:$fragment_version"
   implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+
+  implementation "com.google.android.material:material:$material_version"
+
+  implementation 'com.mummyding.view:colorpickerdialog:1.0.0'
 
 }
 

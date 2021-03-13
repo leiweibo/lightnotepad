@@ -1,9 +1,11 @@
 <resources>
-  <string name="app_name">lightnotepad</string>
+  <string name="app_name">Light Notepad</string>
   <string name="action_settings">Settings</string>
+  <string name="action_bg_setting">Change Background</string>
   <!-- Strings used for fragments for navigation -->
   <string name="home_fragment_label">Home Fragment</string>
   <string name="edit_fragment_label">Edit Fragment</string>
+  <string name="view_fragment_label">View Fragment</string>
   <string name="next">Next</string>
   <string name="previous">Previous</string>
 

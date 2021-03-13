@@ -5,6 +5,9 @@
         <variable
             name="note"
             type="com.light.lnotepad.data.Note" />
+        <variable
+            name="ClickListener"
+            type="android.view.View.OnClickListener" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +22,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="#CCFFFF"
+            app:cardBackgroundColor="@{note.color}"
             app:cardCornerRadius="15dp"
+            android:onClick="@{ClickListener}"
             app:cardElevation="0dp">
 
             <LinearLayout

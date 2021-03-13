@@ -1,6 +1,7 @@
 package com.light.lnotepad.workers
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -23,6 +24,7 @@ class SeedDatabaseWorker(context: Context, workerParameters: WorkerParameters) :
 
                     val calendar:Calendar = Calendar.getInstance()
                     noteList.map {
+                        it.color = Color.parseColor("#FFFFCC")
                         it.startTime = calendar.time
                         it.createTime = calendar.time
                         calendar.add(Calendar.DATE, 1)
