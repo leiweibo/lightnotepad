@@ -11,6 +11,7 @@ import com.light.lnotepad.databinding.ItemNoteHomeBinding
 
 
 class NoteAdapter : ListAdapter<Note, RecyclerView.ViewHolder>(NoteDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return NoteViewHolder(
             ItemNoteHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +20,7 @@ class NoteAdapter : ListAdapter<Note, RecyclerView.ViewHolder>(NoteDiffCallback(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val note = getItem(position)
-        (holder as NoteViewHolder).bind(note)
+        (holder as NoteViewHolder).bind(note, position)
     }
 
     class NoteViewHolder(private val binding: ItemNoteHomeBinding) :
@@ -28,16 +29,17 @@ class NoteAdapter : ListAdapter<Note, RecyclerView.ViewHolder>(NoteDiffCallback(
         init {
             binding.setClickListener {
                 binding.note?.let {note ->
-                    val direction = HomeFragmentDirections.actionHomeFragmentToViewFragment(note)
+                    val direction = HomeFragmentDirections.actionHomeFragmentToViewFragment(note, binding.root.tag as Int)
                     it.findNavController().navigate(direction)
                 }
 
             }
         }
 
-        fun bind(item: Note) {
+        fun bind(item: Note, position: Int) {
             binding.apply {
                 note = item
+                binding.root.tag = position
                 executePendingBindings()
             }
         }

@@ -9,11 +9,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mummyding.colorpickerdialog.ColorPickerDialog
 import com.light.lnotepad.R
 import com.light.lnotepad.databinding.FragmentViewBinding
 import com.light.lnotepad.helper.ColorPool
+import com.light.lnotepad.ui.viewmodel.HomeViewShareViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +24,7 @@ class ViewFragment : Fragment() {
 
     lateinit var binding: FragmentViewBinding
     private val args: ViewFragmentArgs by navArgs()
+    private val homeViewShareModel: HomeViewShareViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +49,9 @@ class ViewFragment : Fragment() {
                         .setTitle("Choose Color")
                         .setCheckedColor(Color.parseColor("#FFFFCC"))
                         .setOnColorChangedListener { color ->
-                            val drawable = ColorDrawable(color)
                             binding.contentContainer.setBackgroundColor(color)
+                            binding.note?.color = color
+                            homeViewShareModel.updateNote(args.position, binding.note!!)
                         }
                         .build()
                         .show()
@@ -54,6 +59,10 @@ class ViewFragment : Fragment() {
                 }
                 else -> false
             }
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            it.findNavController().navigateUp()
         }
         return binding.root
     }

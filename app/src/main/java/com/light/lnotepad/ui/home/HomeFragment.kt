@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.light.lnotepad.data.HomeViewShareNote
+import com.light.lnotepad.data.Note
 import com.light.lnotepad.databinding.FragmentHomeBinding
+import com.light.lnotepad.ui.viewmodel.HomeViewShareViewModel
+import com.light.lnotepad.ui.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val homeViewShareModel: HomeViewShareViewModel by activityViewModels()
     private lateinit var adapter: NoteAdapter
 
     override fun onCreateView(
@@ -38,6 +44,10 @@ class HomeFragment : Fragment() {
     private fun subscribeUI(adapter: NoteAdapter) {
         viewModel.noteList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+        })
+
+        homeViewShareModel.selected.observe(viewLifecycleOwner, Observer<HomeViewShareNote> {
+            adapter.notifyItemChanged(it.pos)
         })
     }
 }

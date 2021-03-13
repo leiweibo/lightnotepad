@@ -24,6 +24,8 @@
       tools:layout="@layout/fragment_view">
     <argument android:name="note"
         app:argType="com.light.lnotepad.data.Note"></argument>
+    <argument android:name="position"
+      app:argType="integer"></argument>
   </fragment>
 
   <fragment
