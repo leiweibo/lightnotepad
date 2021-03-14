@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mummyding.colorpickerdialog.ColorPickerDialog
@@ -17,6 +18,7 @@ import com.light.lnotepad.databinding.FragmentViewBinding
 import com.light.lnotepad.helper.ColorPool
 import com.light.lnotepad.ui.viewmodel.HomeViewShareViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -25,6 +27,7 @@ class ViewFragment : Fragment() {
     lateinit var binding: FragmentViewBinding
     private val args: ViewFragmentArgs by navArgs()
     private val homeViewShareModel: HomeViewShareViewModel by activityViewModels()
+    private lateinit var color: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +55,7 @@ class ViewFragment : Fragment() {
                             binding.note?.let {
                                 it.color = color
                             }
+                            this.color = color.toString()
 
                         }
                         .build()
@@ -78,13 +82,18 @@ class ViewFragment : Fragment() {
                         startTime = datetime,
                         endTime = datetime
                     )
-                    homeViewShareModel.insertNote(note)
-                }
+                    lifecycleScope.launch {
+                        homeViewShareModel.insertNote(note)
+                    }
+                 }
             }
 
             it.findNavController().navigateUp()
         }
         return binding.root
+    }
+    companion object {
+        val defaultColor:String =  "FFEC8B"
     }
 
 }
