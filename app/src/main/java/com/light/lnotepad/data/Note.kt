@@ -13,7 +13,7 @@ import javax.inject.Inject
 @Entity(tableName = "t_note")
 class Note @Inject constructor(
     @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    var id: Long?,
     var tag: String,
     var title: String,
     var content: String,

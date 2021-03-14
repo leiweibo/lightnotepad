@@ -2,17 +2,24 @@ package com.light.lnotepad.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.light.lnotepad.data.HomeViewShareNote
 import com.light.lnotepad.data.Note
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * home and edit page shared viewmodel.
  */
-class HomeViewShareViewModel : ViewModel() {
-    val selected = MutableLiveData<HomeViewShareNote>()
+@HiltViewModel
+class HomeViewShareViewModel @Inject constructor() : ViewModel() {
 
-    fun updateNote(pos: Int, note: Note) {
-        val tmp = HomeViewShareNote(pos, note)
-        selected.value = tmp!!
+    private val _notelist = MutableLiveData<MutableList<Note>>()
+
+
+    fun insertNote(note: Note) {
+        _notelist.value?.add(0, note)
+    }
+
+    fun setupNote(notes: MutableList<Note>) {
+        _notelist.value = notes
     }
 }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
     @Query("SELECT * FROM t_note")
-    fun getNoteList(): Flow<List<Note>>
+    fun getNoteList(): Flow<MutableList<Note>>
 
     @Insert
     suspend fun insertNote(note: Note): Long

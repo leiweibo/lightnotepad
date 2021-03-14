@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.light.lnotepad.data.HomeViewShareNote
 import com.light.lnotepad.databinding.FragmentHomeBinding
@@ -42,6 +43,12 @@ class HomeFragment : Fragment() {
             fetchValue(adapter)
         }
 
+        binding.fab.setOnClickListener {
+            // -1的时候表示不传递值
+            val direction = HomeFragmentDirections.actionHomeFragmentToViewFragment(null, -1)
+            it.findNavController().navigate(direction)
+        }
+
         subscribeUI(adapter)
         // Inflate the layout for this fragment
         return binding.root
@@ -51,13 +58,12 @@ class HomeFragment : Fragment() {
     private suspend fun fetchValue(adapter: NoteAdapter) {
         viewModel.noteList.asFlow().collectLatest {
             adapter.submitList(it)
+            homeViewShareModel.setupNote(it)
         }
 
     }
 
     private fun subscribeUI(adapter: NoteAdapter) {
-        homeViewShareModel.selected.observe(viewLifecycleOwner, Observer<HomeViewShareNote> {
-            adapter.notifyItemChanged(it.pos)
-        })
+
     }
 }

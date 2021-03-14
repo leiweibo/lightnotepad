@@ -23,6 +23,7 @@
       android:label="@string/view_fragment_label"
       tools:layout="@layout/fragment_view">
     <argument android:name="note"
+        app:nullable="true"
         app:argType="com.light.lnotepad.data.Note"></argument>
     <argument android:name="position"
       app:argType="integer"></argument>
