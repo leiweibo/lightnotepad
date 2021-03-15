@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM t_note")
+    @Query("SELECT * FROM t_note order by `order` desc")
     fun getNoteList(): Flow<MutableList<Note>>
 
     @Insert
@@ -13,6 +13,9 @@ interface NoteDao {
 
     @Delete
     suspend fun deleteNote(note: Note)
+
+    @Update
+    suspend fun updateNote(note: Note)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(notes: List<Note>)

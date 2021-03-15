@@ -80,7 +80,8 @@ class ViewFragment : Fragment() {
                         color = Color.parseColor("#FFEC8B"),
                         createTime = datetime,
                         startTime = datetime,
-                        endTime = datetime
+                        endTime = datetime,
+                        order = System.nanoTime()
                     )
                     lifecycleScope.launch {
                         homeViewShareModel.insertNote(note)

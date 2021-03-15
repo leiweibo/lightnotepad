@@ -23,8 +23,11 @@ class SeedDatabaseWorker(context: Context, workerParameters: WorkerParameters) :
                     val noteList: List<Note> = Gson().fromJson(jsonReader, plantType)
 
                     val calendar:Calendar = Calendar.getInstance()
-                    noteList.map {
+                    var startOrder = System.nanoTime()
+                    noteList.reversed().map {
                         it.color = Color.parseColor("#FFFFCC")
+                        startOrder ++
+                        it.order = startOrder
                         it.startTime = calendar.time
                         it.createTime = calendar.time
                         calendar.add(Calendar.DATE, 1)

@@ -2,11 +2,9 @@ package com.light.lnotepad.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.light.lnotepad.helper.DateFormatHelper
 import java.io.Serializable
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -24,7 +22,9 @@ class Note @Inject constructor(
     @ColumnInfo(name = "start_time")
     var startTime: Date,
     @ColumnInfo(name = "end_time")
-    var endTime: Date
+    var endTime: Date,
+    @ColumnInfo(name = "order")
+    var order: Long?
 ) : Serializable {
     override fun toString(): String = "$title: $color"
 
@@ -32,11 +32,11 @@ class Note @Inject constructor(
         return id == (other as Note).id
     }
 
-    fun convertStartTimeStr():String {
+    fun convertStartTimeStr(): String {
         return DateFormatHelper.convertDate2("yyyy-MM-dd", startTime)
     }
 
-    fun composeStartAndEndTime():String {
+    fun composeStartAndEndTime(): String {
         return "${convertCreateTimeStr()} - ${convertEndTimeStr()}"
     }
 
