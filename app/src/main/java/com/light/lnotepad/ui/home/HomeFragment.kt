@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,7 +18,6 @@ import com.light.lnotepad.databinding.FragmentHomeBinding
 import com.light.lnotepad.ui.viewmodel.HomeViewModel
 import com.light.lnotepad.ui.viewmodel.HomeViewShareViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -28,7 +27,6 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
-    private val homeViewShareModel: HomeViewShareViewModel by activityViewModels()
     private lateinit var adapter: NoteAdapter
 
     override fun onCreateView(
@@ -40,9 +38,8 @@ class HomeFragment : Fragment() {
         binding.recyclerview.adapter = adapter
         binding.recyclerview.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        lifecycleScope.launch {
-            fetchValue(adapter)
-        }
+
+        subscribeUI(adapter)
 
         binding.fab.setOnClickListener {
             // -1的时候表示不传递值
@@ -56,12 +53,12 @@ class HomeFragment : Fragment() {
     }
 
 
-    private suspend fun fetchValue(adapter: NoteAdapter) {
-        viewModel.noteList.asFlow().collectLatest {
-            adapter.submitList(it)
-            homeViewShareModel.setupNote(it)
-        }
+    private fun subscribeUI(adapter: NoteAdapter) {
 
+        viewModel.noteList.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+            viewModel.setupNote(it)
+        })
     }
 
     private fun bindTouchEvent() {
@@ -93,18 +90,18 @@ class HomeFragment : Fragment() {
 
                 if (fromPosition < toPosition) {
                     for (i in fromPosition until toPosition) {
-                        homeViewShareModel.swipeMemoryData(i, i+1)
+                        viewModel.swipeMemoryData(i, i+1)
                         lifecycleScope.launch {
-                            homeViewShareModel.swipeDBData(i, i+1)
+                            viewModel.swipeDBData(i, i+1)
                         }
 
                     }
                 } else {
                     for (i in fromPosition downTo toPosition + 1) {
 
-                        homeViewShareModel.swipeMemoryData(i, i-1)
+                        viewModel.swipeMemoryData(i, i-1)
                         lifecycleScope.launch {
-                            homeViewShareModel.swipeDBData(i, i-1)
+                            viewModel.swipeDBData(i, i-1)
                         }
                     }
                 }
@@ -119,7 +116,7 @@ class HomeFragment : Fragment() {
 
                 //侧滑事件
                 lifecycleScope.launch {
-                    homeViewShareModel.deleteNote(viewHolder.bindingAdapterPosition)
+                    viewModel.deleteNote(viewHolder.bindingAdapterPosition)
                     adapter.notifyItemRemoved(viewHolder.bindingAdapterPosition)
                     Snackbar.make(binding.recyclerview, "Delete success", Snackbar.LENGTH_SHORT)
                         .show()

@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mummyding.colorpickerdialog.ColorPickerDialog
@@ -16,9 +14,8 @@ import com.light.lnotepad.R
 import com.light.lnotepad.data.Note
 import com.light.lnotepad.databinding.FragmentViewBinding
 import com.light.lnotepad.helper.ColorPool
-import com.light.lnotepad.ui.viewmodel.HomeViewShareViewModel
+import com.light.lnotepad.ui.viewmodel.ViewAndEditViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -26,7 +23,7 @@ class ViewFragment : Fragment() {
 
     lateinit var binding: FragmentViewBinding
     private val args: ViewFragmentArgs by navArgs()
-    private val homeViewShareModel: HomeViewShareViewModel by activityViewModels()
+    private val viewModel: ViewAndEditViewModel by viewModels()
     private lateinit var color: String
 
     override fun onCreateView(
@@ -35,6 +32,7 @@ class ViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentViewBinding.inflate(layoutInflater, container, false)
+        binding.viewModel = viewModel
 
         binding.apply {
             args.note?.let {
@@ -54,6 +52,7 @@ class ViewFragment : Fragment() {
                             binding.contentContainer.setBackgroundColor(color)
                             binding.note?.let {
                                 it.color = color
+                                viewModel.updateNote(it)
                             }
                             this.color = color.toString()
 
@@ -83,18 +82,14 @@ class ViewFragment : Fragment() {
                         endTime = datetime,
                         order = System.nanoTime()
                     )
-                    lifecycleScope.launch {
-                        homeViewShareModel.insertNote(note)
-                    }
-                 }
+                    viewModel.insertNote(note)
+                }
             }
-
             it.findNavController().navigateUp()
         }
+
+
         return binding.root
-    }
-    companion object {
-        val defaultColor:String =  "FFEC8B"
     }
 
 }

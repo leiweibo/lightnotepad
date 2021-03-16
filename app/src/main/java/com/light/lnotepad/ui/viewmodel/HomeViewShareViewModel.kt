@@ -26,32 +26,8 @@ class HomeViewShareViewModel @Inject constructor(
         _notelist.value?.add(0, note)
     }
 
-    fun setupNote(notes: MutableList<Note>) {
-        _notelist.value = notes
-    }
 
-    suspend fun deleteNote(pos: Int) {
-        val note = _notelist.value?.get(pos)
-        _notelist.value?.remove(note)
-        if (note != null) repository.deleteNote(note)
-    }
 
-    fun swipeMemoryData(startPos: Int, targetPos: Int) {
-        Collections.swap(
-            _notelist.value,
-            startPos,
-            targetPos
-        )
-    }
 
-    suspend fun swipeDBData(startPos: Int, targetPos: Int) {
-        var  tmp1 = _notelist.value?.get(startPos)?.order
-        var tmp2 = _notelist.value?.get(targetPos)?.order
-        _notelist.value?.get(startPos)?.order = tmp2
-        _notelist.value?.get(targetPos)?.order = tmp1
-
-        repository.updateNote(_notelist.value?.get(startPos) as Note)
-        repository.updateNote(_notelist.value?.get(targetPos) as Note)
-    }
 
 }

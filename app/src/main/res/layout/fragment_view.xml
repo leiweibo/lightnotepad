@@ -5,6 +5,9 @@
         <variable
             name="note"
             type="com.light.lnotepad.data.Note" />
+        <variable
+            name="viewModel"
+            type="com.light.lnotepad.ui.viewmodel.ViewAndEditViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content_container"
@@ -48,7 +51,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="@{note.title}"
+            android:text="@={note.title}"
+            android:onTextChanged="@{(text, start, before, count)->viewModel.updateNote(note)}"
             android:textColor="@color/gray_333"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -62,7 +66,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="@{note.content}"
+            android:text="@={note.content}"
+            android:onTextChanged="@{(text, start, before, count)->viewModel.updateNote(note)}"
             android:textColor="@color/gray_666"
             android:textSize="22sp"
             app:layout_constraintRight_toLeftOf="parent"
