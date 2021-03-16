@@ -67,22 +67,24 @@ class ViewFragment : Fragment() {
 
         binding.topAppBar.setNavigationOnClickListener {
             if (binding.note == null) {
-                binding.title?.let {
-                    val title = binding.title.text.toString()
-                    val content = binding.content.text.toString()
-                    val datetime = Calendar.getInstance().time
-                    var note = Note(
-                        id = null,
-                        tag = "lightnote",
-                        title = title,
-                        content = content,
-                        color = Color.parseColor("#FFEC8B"),
-                        createTime = datetime,
-                        startTime = datetime,
-                        endTime = datetime,
-                        order = System.nanoTime()
-                    )
-                    viewModel.insertNote(note)
+                binding.title.text.let { it ->
+                    if (it.toString().isNotBlank()) {
+                        val title = binding.title.text.toString()
+                        val content = binding.content.text.toString()
+                        val datetime = Calendar.getInstance().time
+                        var note = Note(
+                            id = null,
+                            tag = "lightnote",
+                            title = title,
+                            content = content,
+                            color = Color.parseColor("#FFEC8B"),
+                            createTime = datetime,
+                            startTime = datetime,
+                            endTime = datetime,
+                            order = System.nanoTime()
+                        )
+                        viewModel.insertNote(note)
+                    }
                 }
             }
             it.findNavController().navigateUp()

@@ -23,9 +23,11 @@ class ViewAndEditViewModel @Inject constructor(
 
     }
 
-    fun updateNote(note: Note) {
-        viewModelScope.launch {
-            repository.updateNote(note)
+    fun updateNote(note: Note?) {
+        note?.let {
+            viewModelScope.launch {
+                repository.updateNote(note)
+            }
         }
     }
 
