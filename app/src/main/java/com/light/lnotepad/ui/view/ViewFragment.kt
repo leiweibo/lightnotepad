@@ -41,6 +41,16 @@ class ViewFragment : Fragment() {
             }
         }
 
+        mutableListOf(binding.tag, binding.title, binding.content).forEach {
+            it.setOnFocusChangeListener { _, b ->
+                {
+                    if (!b) {
+                        viewModel.updateNote(binding.note)
+                    }
+                }
+            }
+        }
+
         binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.bg_settings -> {

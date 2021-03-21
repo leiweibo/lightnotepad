@@ -32,6 +32,19 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <EditText
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@color/gray_666"
+            android:text="@={note.tag}"
+            android:inputType="textNoSuggestions"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <EditText
             android:id="@+id/create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,9 +52,10 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
             android:text="@{note.composeStartAndEndTime()}"
+            android:inputType="textNoSuggestions"
             android:textColor="@color/gray_999"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+            app:layout_constraintTop_toBottomOf="@id/tag"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <EditText
@@ -52,7 +66,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="@={note.title}"
-            android:onTextChanged="@{(text, start, before, count)->viewModel.updateNote(note)}"
+            android:inputType="textNoSuggestions"
             android:textColor="@color/gray_333"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -67,6 +81,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="@={note.content}"
+            android:inputType="textNoSuggestions"
             android:onTextChanged="@{(text, start, before, count)->viewModel.updateNote(note)}"
             android:textColor="@color/gray_666"
             android:textSize="22sp"
