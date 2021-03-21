@@ -2,6 +2,7 @@ package com.light.lnotepad.ui.view
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,16 +42,6 @@ class ViewFragment : Fragment() {
             }
         }
 
-        mutableListOf(binding.tag, binding.title, binding.content).forEach {
-            it.setOnFocusChangeListener { _, b ->
-                {
-                    if (!b) {
-                        viewModel.updateNote(binding.note)
-                    }
-                }
-            }
-        }
-
         binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.bg_settings -> {
@@ -62,7 +53,7 @@ class ViewFragment : Fragment() {
                             binding.contentContainer.setBackgroundColor(color)
                             binding.note?.let {
                                 it.color = color
-                                viewModel.updateNote(it)
+                                viewModel.updateNote(it, null)
                             }
                             this.color = color.toString()
 
@@ -96,8 +87,13 @@ class ViewFragment : Fragment() {
                         viewModel.insertNote(note)
                     }
                 }
+            } else {
+                viewModel.updateNote(binding.note) {
+                    it.findNavController().navigateUp()
+                    Log.e("wbleiiii", "navigation up")
+                }
             }
-            it.findNavController().navigateUp()
+
         }
 
 

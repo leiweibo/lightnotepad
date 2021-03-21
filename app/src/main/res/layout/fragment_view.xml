@@ -33,7 +33,7 @@
 
         <EditText
             android:id="@+id/tag"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -46,13 +46,13 @@
 
         <EditText
             android:id="@+id/create_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="30dp"
             android:text="@{note.composeStartAndEndTime()}"
-            android:inputType="textNoSuggestions"
+            android:inputType="none"
             android:textColor="@color/gray_999"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/tag"
@@ -60,7 +60,7 @@
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
@@ -81,8 +81,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="@={note.content}"
-            android:inputType="textNoSuggestions"
-            android:onTextChanged="@{(text, start, before, count)->viewModel.updateNote(note)}"
             android:textColor="@color/gray_666"
             android:textSize="22sp"
             app:layout_constraintRight_toLeftOf="parent"

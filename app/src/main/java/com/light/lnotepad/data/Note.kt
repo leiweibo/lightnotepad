@@ -29,7 +29,7 @@ class Note @Inject constructor(
     override fun toString(): String = "$title: $color"
 
     override fun equals(other: Any?): Boolean {
-        return id == (other as Note).id
+        return id == (other as Note).id && color == other.color && tag == (other as Note).tag && title == other.title && content == other.content && createTime.equals(other.createTime) && endTime.equals(other.endTime)
     }
 
     fun convertStartTimeStr(): String {
