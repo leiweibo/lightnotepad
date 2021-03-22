@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/gray_666"
             android:text="@={note.tag}"
             android:inputType="textNoSuggestions"

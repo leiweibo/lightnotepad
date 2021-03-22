@@ -23,14 +23,10 @@ class ViewAndEditViewModel @Inject constructor(
 
     }
 
-    fun updateNote(note: Note?, callback: (() -> Unit)?) {
+    fun updateNote(note: Note?) {
         note?.let {
             val job = viewModelScope.launch {
                 repository.updateNote(note)
-            }
-            viewModelScope.launch {
-                job.join()
-                callback?.invoke()
             }
         }
     }

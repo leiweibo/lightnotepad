@@ -53,7 +53,7 @@ class ViewFragment : Fragment() {
                             binding.contentContainer.setBackgroundColor(color)
                             binding.note?.let {
                                 it.color = color
-                                viewModel.updateNote(it, null)
+                                viewModel.updateNote(it)
                             }
                             this.color = color.toString()
 
@@ -88,10 +88,8 @@ class ViewFragment : Fragment() {
                     }
                 }
             } else {
-                viewModel.updateNote(binding.note) {
-                    it.findNavController().navigateUp()
-                    Log.e("wbleiiii", "navigation up")
-                }
+                viewModel.updateNote(binding.note)
+                it.findNavController().navigateUp()
             }
 
         }
