@@ -70,7 +70,7 @@
                         android:layout_weight="1"
                         android:gravity="end|center_vertical"
                         android:maxEms="10"
-                        android:text="@{note.convertCreateTimeStr()}"
+                        android:text="@{@string/format(note.updateTime)}"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>

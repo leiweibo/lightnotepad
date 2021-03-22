@@ -1,8 +1,9 @@
 package com.light.lnotepad.ui.view
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class ViewFragment : Fragment() {
             }
         }
 
+
         binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.bg_settings -> {
@@ -68,7 +70,7 @@ class ViewFragment : Fragment() {
 
         binding.topAppBar.setNavigationOnClickListener {
             if (binding.note == null) {
-                binding.title.text.let { it ->
+                binding.title.text.let { text ->
                     if (it.toString().isNotBlank()) {
                         val title = binding.title.text.toString()
                         val content = binding.content.text.toString()
@@ -80,14 +82,17 @@ class ViewFragment : Fragment() {
                             content = content,
                             color = Color.parseColor("#FFEC8B"),
                             createTime = datetime,
+                            updateTime = datetime,
                             startTime = datetime,
                             endTime = datetime,
                             order = System.nanoTime()
                         )
                         viewModel.insertNote(note)
+                        it.findNavController().navigateUp()
                     }
                 }
             } else {
+                binding.note!!.updateTime = Calendar.getInstance().time
                 viewModel.updateNote(binding.note)
                 it.findNavController().navigateUp()
             }

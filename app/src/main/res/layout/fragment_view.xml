@@ -45,19 +45,19 @@
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
-        <EditText
-            android:id="@+id/create_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
-            android:text="@{note.composeStartAndEndTime()}"
-            android:inputType="none"
-            android:textColor="@color/gray_999"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tag"
-            app:layout_constraintLeft_toLeftOf="parent" />
+<!--        <EditText-->
+<!--            android:id="@+id/create_time"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_marginRight="30dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="@{viewModel.formatCreateAndEndTime(note.createTime, note.endTime)}"-->
+<!--            android:inputType="none"-->
+<!--            android:textColor="@color/gray_999"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tag"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent" />-->
 
         <EditText
             android:id="@+id/title"
@@ -72,7 +72,7 @@
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/create_time" />
+            app:layout_constraintTop_toBottomOf="@id/tag" />
 
         <EditText
             android:id="@+id/content"

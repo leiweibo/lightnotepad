@@ -19,6 +19,8 @@ class Note @Inject constructor(
     var color: Int,
     @ColumnInfo(name = "create_time")
     var createTime: Date,
+    @ColumnInfo(name = "update_time")
+    var updateTime: Date,
     @ColumnInfo(name = "start_time")
     var startTime: Date,
     @ColumnInfo(name = "end_time")
@@ -30,21 +32,5 @@ class Note @Inject constructor(
 
     override fun equals(other: Any?): Boolean {
         return id == (other as Note).id && color == other.color && tag == (other as Note).tag && title == other.title && content == other.content && createTime.equals(other.createTime) && endTime.equals(other.endTime)
-    }
-
-    fun convertStartTimeStr(): String {
-        return DateFormatHelper.convertDate2("yyyy-MM-dd", startTime)
-    }
-
-    fun composeStartAndEndTime(): String {
-        return "${convertCreateTimeStr()} - ${convertEndTimeStr()}"
-    }
-
-    fun convertEndTimeStr(): String {
-        return DateFormatHelper.convertDate2("yyyy-MM-dd", endTime)
-    }
-
-    fun convertCreateTimeStr(): String {
-        return DateFormatHelper.convertDate2("yyyy-MM-dd", createTime)
     }
 }

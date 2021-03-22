@@ -2,9 +2,11 @@ package com.light.lnotepad.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.light.lnotepad.data.Note
+import com.light.lnotepad.helper.DateFormatHelper
 import com.light.lnotepad.ui.home.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +27,7 @@ class ViewAndEditViewModel @Inject constructor(
 
     fun updateNote(note: Note?) {
         note?.let {
-            val job = viewModelScope.launch {
+            viewModelScope.launch {
                 repository.updateNote(note)
             }
         }
@@ -34,5 +36,4 @@ class ViewAndEditViewModel @Inject constructor(
     fun setValue(newNote: Note) {
         _note.value = newNote
     }
-
 }
